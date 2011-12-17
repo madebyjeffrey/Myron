@@ -15,7 +15,7 @@ namespace Myron
 {
     enum Events
     {
-        Event,
+        Resize,
         Draw
     };
     
@@ -31,7 +31,7 @@ namespace Myron
         virtual int width() = 0;
         virtual int height() = 0;
         
-        virtual void addEvent(Events e, std::function<bool(Context, int, int)> binary) = 0;
+        virtual void addEvent(Events e, std::function<bool(int, int)> binary) = 0;
     };
     
     void Init(std::function<bool()> setup);

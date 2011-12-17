@@ -48,6 +48,7 @@ namespace Myron
     class MacWindow : public Window
     {
         NSWindow *win;
+        std::function<bool(int,int)> resize;
         
         friend Window *createWindow(int, int);
         
@@ -86,8 +87,12 @@ namespace Myron
             return 0;
         }
         
-        virtual void addEvent(Events e, std::function<bool(Context, int, int)> binary) 
+        virtual void addEvent(Events e, std::function<bool(int, int)> binary) 
         {
+            if (e == Events::Resize)
+                resize = binary;
+            
+            resize(10, 10);
         }
 
     };

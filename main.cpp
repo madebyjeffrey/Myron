@@ -7,26 +7,39 @@
 //
 
 #include <iostream>
+#include <functional>
 
 #include "Myron.h"
 
 bool setup();
+bool resize(Myron::Window *win, int width, int height);
 
-using namespace std;
+
 
 bool setup()
 {
-    cout << "setup()" << endl;
+    using namespace std::placeholders;
+    
+    std::cout << "setup()" << std::endl;
     Myron::Window *main = Myron::createWindow(640, 480);
+    main->addEvent(Myron::Events::Resize, std::bind(resize, main, _1, _2));
     
     return true;
 }
 
+bool resize(Myron::Window *win, int width, int height)
+{
+    std::cout << "Reisze: " << width << ", " << height << std::endl;
+    return true;
+}
+
+
+
 int main(int argc, char**argv)
 {
-    cout << "Initialize..." << endl;
+    std::cout << "Initialize..." << std::endl;
     
     Myron::Init(setup);
     
-    cout << "Done Initialize." << endl;
+    std::cout << "Done Initialize." << std::endl;
 }
