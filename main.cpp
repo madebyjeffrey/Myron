@@ -17,8 +17,9 @@ using namespace std;
 bool setup()
 {
     cout << "setup()" << endl;
+    Myron::Window *main = Myron::createWindow(640, 480);
     
-    return false;
+    return true;
 }
 
 int main(int argc, char**argv)
