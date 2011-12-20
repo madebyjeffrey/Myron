@@ -21,13 +21,6 @@
 		76675FC4149C533800EBA3A4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		76675FC5149C533800EBA3A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		76675FC8149C533800EBA3A4 /* Myron-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Myron-Info.plist"; path = "MacOS/Myron-Info.plist"; sourceTree = "<group>"; };
-		76675FCA149C533800EBA3A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		76675FCC149C533800EBA3A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Myron/main.m; sourceTree = "<group>"; };
-		76675FCE149C533800EBA3A4 /* Myron-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Myron-Prefix.pch"; path = "Myron/Myron-Prefix.pch"; sourceTree = "<group>"; };
-		76675FD0149C533800EBA3A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		76675FD2149C533800EBA3A4 /* ifAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ifAppDelegate.h; path = Myron/ifAppDelegate.h; sourceTree = "<group>"; };
-		76675FD3149C533800EBA3A4 /* ifAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ifAppDelegate.m; path = Myron/ifAppDelegate.m; sourceTree = "<group>"; };
-		76675FD6149C533800EBA3A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		76675FDE149C535600EBA3A4 /* Myron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Myron.h; path = Myron/Myron.h; sourceTree = "<group>"; };
 		76675FDF149C536700EBA3A4 /* Myron-Mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "Myron-Mac.mm"; path = "Myron/MacOS/Myron-Mac.mm"; sourceTree = "<group>"; };
 		76675FE6149C62BD00EBA3A4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -53,7 +46,6 @@
 		76675FB1149C533800EBA3A4 = {
 			isa = PBXGroup;
 			children = (
-				76675FE5149C624100EBA3A4 /* Ignore */,
 				76675FDD149C534700EBA3A4 /* Myron Library */,
 				76675FC6149C533800EBA3A4 /* Myron */,
 				76675FBF149C533800EBA3A4 /* Frameworks */,
@@ -97,14 +89,6 @@
 			path = Myron;
 			sourceTree = "<group>";
 		};
-		76675FC7149C533800EBA3A4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Supporting Files";
-			path = Myron;
-			sourceTree = "<group>";
-		};
 		76675FDD149C534700EBA3A4 /* Myron Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,21 +96,6 @@
 				76675FDE149C535600EBA3A4 /* Myron.h */,
 			);
 			name = "Myron Library";
-			sourceTree = "<group>";
-		};
-		76675FE5149C624100EBA3A4 /* Ignore */ = {
-			isa = PBXGroup;
-			children = (
-				76675FD2149C533800EBA3A4 /* ifAppDelegate.h */,
-				76675FD3149C533800EBA3A4 /* ifAppDelegate.m */,
-				76675FD5149C533800EBA3A4 /* MainMenu.xib */,
-				76675FC7149C533800EBA3A4 /* Supporting Files */,
-				76675FC9149C533800EBA3A4 /* InfoPlist.strings */,
-				76675FCC149C533800EBA3A4 /* main.m */,
-				76675FCE149C533800EBA3A4 /* Myron-Prefix.pch */,
-				76675FCF149C533800EBA3A4 /* Credits.rtf */,
-			);
-			name = Ignore;
 			sourceTree = "<group>";
 		};
 		766F66AB14A01ECC003D5ACA /* Mac */ = {
@@ -210,36 +179,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		76675FC9149C533800EBA3A4 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				76675FCA149C533800EBA3A4 /* en */,
-			);
-			name = InfoPlist.strings;
-			path = Myron;
-			sourceTree = "<group>";
-		};
-		76675FCF149C533800EBA3A4 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				76675FD0149C533800EBA3A4 /* en */,
-			);
-			name = Credits.rtf;
-			path = Myron;
-			sourceTree = "<group>";
-		};
-		76675FD5149C533800EBA3A4 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				76675FD6149C533800EBA3A4 /* en */,
-			);
-			name = MainMenu.xib;
-			path = Myron;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		76675FD8149C533800EBA3A4 /* Debug */ = {
