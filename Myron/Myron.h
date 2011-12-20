@@ -9,16 +9,20 @@
 #ifndef Myron_Myron_h
 #define Myron_Myron_h
 
-#include <boost/signals2.hpp>
 #include <functional>
-
-namespace bs2 = boost::signals2;
 
 namespace Myron 
 {
     class Context
     {
         int nothing;
+    };
+
+    struct Events
+    {
+        std::function<bool(int&,int&)> resize;
+        std::function<bool(void)> close;
+        std::function<bool(float)> render;
     };
     
     class Window
@@ -28,11 +32,11 @@ namespace Myron
         virtual int width() = 0;
         virtual int height() = 0;
         
-        bs2::signal<bool(int&,int&)> resize;
-        bs2::signal<bool()> close;
+        virtual void setFrame(int x, int y, int cx, int cy) = 0;
+        virtual void setFocus() = 0;
+        virtual void setRenderRate(float rate = 60) = 0;
         
-//        virtual void addEvent(Events e, std::function<bool(int&, int&)> binary) = 0; // resize
-//        virtual void addEvent(Events e, std::function<bool()> nullary) = 0;           // close
+        Events events;
     };
     
     void Init(std::function<bool()> setup);

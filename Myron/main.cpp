@@ -9,46 +9,52 @@
 
 #include <iostream>
 #include <functional>
-
-#include <boost/bind.hpp>
+#include <string>
+#include <type_traits>
 
 #include "Myron.h"
 
 bool setup();
-bool resize(Myron::Window &win, int &width, int &height);
-bool close(Myron::Window &win);
-
+bool Resize(Myron::Window &win, int &width, int &height);
+bool Close(Myron::Window &win);
+bool Render(Myron::Window &win, float dt);
 
 bool setup()
 {
-//    namespace p = std::placeholders;
-//    using namespace std::placeholders;
+    using namespace std::placeholders;
     
     std::cout << "setup()" << std::endl;
     Myron::Window &main = Myron::createWindow(640, 480);
-//    main.addEvent(Myron::Events::Resize, std::bind(resize, std::ref(main), _1, _2));
-//    main.resize.connect(std::bind(resize, std::ref(main), p::_1, p::_2));
-    main.resize.connect(boost::bind(resize, std::ref(main), _1, _2));
-//    if (main.resize.empty())
-//    {
-//        std::cout << "signal is empty" << std::endl;
-//    }
-    main.close.connect(std::bind(close, std::ref(main)));
+    
+    main.events.resize = std::bind(Resize, std::ref(main), _1, _2);
+    main.events.close = std::bind(Close, std::ref(main));
+    main.events.render = std::bind(Render, std::ref(main), _1);
+    
+    main.setRenderRate();
+    
     return true;
 }
 
-bool close(Myron::Window &win)
+bool Close(Myron::Window &win)
 {
     std::cout << "Window Closed" << std::endl;
+    return true;
 }
 
-bool resize(Myron::Window &win, int &width, int &height)
+bool Resize(Myron::Window &win, int &width, int &height)
 {
+//    float ar = (float)width / (float)height;
+    height = (int)(width / 1.66);
+
     std::cout << "Resize: " << width << ", " << height << std::endl;
     return true;
 }
 
-
+bool Render(Myron::Window &win, float dt)
+{
+    std::cout << "Render!" << std::endl;
+    return true;
+}
 
 int main(int argc, char**argv)
 {

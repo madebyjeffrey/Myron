@@ -11,6 +11,7 @@
 
 #include <Cocoa/Cocoa.h>
 #include <functional>
+#include <CoreVideo/CoreVideo.h>
 
 #include "Myron.h"
 
@@ -19,6 +20,7 @@ namespace Myron
     class MacWindow : public Window
     {
         NSWindow *win;
+        CVDisplayLinkRef link;
         
         friend Window &createWindow(int, int);
         friend class std::vector<MacWindow>;
@@ -36,6 +38,10 @@ namespace Myron
         
         virtual int width();
         virtual int height();
+
+        virtual void setFrame(int x, int y, int cx, int cy);
+        virtual void setFocus();
+        virtual void setRenderRate(float rate = 60);
         
         NSWindow *windowObject()
         {   return win; }

@@ -12,10 +12,41 @@
 #include <setjmp.h>
 #include <stdlib.h>
 
+
+
 #include "Myron.h"
 #include "NSApp.h"
 
 jmp_buf jmpbuf1; // don't ask
+
+
+CVReturn displayCallback(CVDisplayLinkRef displayLink, const CVTimeStamp *inNow, const CVTimeStamp *inOutputTime, CVOptionFlags flagsIn, CVOptionFlags *flagsOut, void *displayLinkContext);
+
+CVReturn displayCallback(CVDisplayLinkRef displayLink, const CVTimeStamp *inNow, const CVTimeStamp *inOutputTime, CVOptionFlags flagsIn, CVOptionFlags *flagsOut, void *displayLinkContext)
+{
+    static double prev = 0.0;
+    
+    
+    double freq = CVGetHostClockFrequency();
+    double now = inOutputTime->hostTime / freq;
+    
+    if (prev != 0)
+    {
+        Myron::MacWindow *window = static_cast<Myron::MacWindow*>(displayLinkContext);
+        try
+        {
+            window->events.render(now - prev);
+        }
+        catch (std::bad_function_call)
+        {
+            std::cout << "No render event set." << std::endl;
+        }
+    }
+    
+    prev = now;
+    
+    return kCVReturnSuccess;
+}
 
 
 
@@ -53,12 +84,54 @@ namespace Myron
         
     int MacWindow::width() 
     {
-        return 0;
+        NSRect r = [win frame];
+        
+        return (int)r.size.width;
     }
     
     int MacWindow::height() 
     {
-        return 0;
+        NSRect r = [win frame];
+        
+        return (int)r.size.height;
+    }
+    
+    void MacWindow::setFrame(int x, int y, int cx, int cy)
+    {
+        NSRect r = NSMakeRect(x, y, cx, cy);
+        
+        [win setFrame: r display: YES animate: YES];
+    }
+    
+    void MacWindow::setFocus()
+    {
+        [win makeKeyAndOrderFront: win];
+    }
+    
+    void MacWindow::setRenderRate(float rate)
+    {
+        if (rate == 0)
+        { // turn off
+            
+        } else
+        { // we don't care what rate is because we can't control it
+
+            // create updater link
+            CGDirectDisplayID displayID = CGMainDisplayID();
+            CVReturn error = CVDisplayLinkCreateWithCGDisplay(displayID, &link);
+            
+            if (error == kCVReturnSuccess)
+            {
+                CVDisplayLinkSetOutputCallback(link, displayCallback, static_cast<void*>(this));
+                CVDisplayLinkStart(link);
+            }
+            else
+            {
+                std::cout << "Display Link created with error: %d" << error << std::endl;
+                link = NULL;
+            }
+
+        }
     }
 
     

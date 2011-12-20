@@ -168,41 +168,24 @@ static void restoreApp()
 
 - (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize
 {
-    // find the window object:
-/*    for (Myron::MacWindow * n : *windowList)
-    {
-        NSWindow *win = n->windowObject();
-        if (win == sender)
-        {
-            // n is our object!
-            int x = (int)frameSize.width;
-            int y = (int)frameSize.height;
-            
-            n->resize(x,y);
-            
-            return NSMakeSize((float)x, (float)y);
-        }
-    }
-    std::cout << "...." << std::endl; */
-    
     Myron::MacWindow *win = [self windowObjectFor: sender];
     
     if (win != nullptr)
     {
         int x = (int)frameSize.width;
         int y = (int)frameSize.height;
-
-        if (win->resize.empty())
-        {
-            std::cout << "signal is empty" << std::endl;
-        }
-
         
-        auto result = win->resize(x,y);
-        
-        if (result)
-        {
-            return NSMakeSize((float)x, (float)y);
+        try {
+            auto result = win->events.resize(x,y);
+            
+            if (result)
+            {
+                return NSMakeSize((float)x, (float)y);
+            }
+
+        } catch (std::bad_function_call) {
+            
+            std::cout << "No registered resize event." << std::endl;
         }
     }
     return frameSize;
@@ -222,7 +205,13 @@ static void restoreApp()
             int x = (int)r.size.width;
             int y = (int)r.size.height;
             
-            n->resize(x,y);
+            try {
+                n->events.resize(x,y);
+            }
+            catch (std::bad_function_call)
+            {
+                std::cout << "No resize function registered" << std::endl;
+            }
         }
     }    
 }
@@ -231,9 +220,12 @@ static void restoreApp()
 {
     Myron::MacWindow *win = [self windowObjectFor: notification.object];
     
-    if (win != nullptr)
+    try {
+        win->events.close();
+    } 
+    catch (std::bad_function_call)
     {
-        auto result = win->close();
+        std::cout << "No registered close function" << std::endl;
     }
 }
 
