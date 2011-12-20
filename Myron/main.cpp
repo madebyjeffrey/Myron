@@ -16,7 +16,7 @@
 
 bool setup();
 bool resize(Myron::Window &win, int &width, int &height);
-
+bool close(Myron::Window &win);
 
 
 bool setup()
@@ -29,8 +29,17 @@ bool setup()
 //    main.addEvent(Myron::Events::Resize, std::bind(resize, std::ref(main), _1, _2));
 //    main.resize.connect(std::bind(resize, std::ref(main), p::_1, p::_2));
     main.resize.connect(boost::bind(resize, std::ref(main), _1, _2));
-    
+//    if (main.resize.empty())
+//    {
+//        std::cout << "signal is empty" << std::endl;
+//    }
+    main.close.connect(std::bind(close, std::ref(main)));
     return true;
+}
+
+bool close(Myron::Window &win)
+{
+    std::cout << "Window Closed" << std::endl;
 }
 
 bool resize(Myron::Window &win, int &width, int &height)

@@ -8,14 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		76675FC1149C533800EBA3A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76675FC0149C533800EBA3A4 /* Cocoa.framework */; };
-		76675FCB149C533800EBA3A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76675FC9149C533800EBA3A4 /* InfoPlist.strings */; };
-		76675FD1149C533800EBA3A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 76675FCF149C533800EBA3A4 /* Credits.rtf */; };
-		76675FD7149C533800EBA3A4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76675FD5149C533800EBA3A4 /* MainMenu.xib */; };
 		76675FE0149C536700EBA3A4 /* Myron-Mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 76675FDF149C536700EBA3A4 /* Myron-Mac.mm */; };
 		76675FE7149C62BD00EBA3A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76675FE6149C62BD00EBA3A4 /* main.cpp */; };
 		76675FF3149D390000EBA3A4 /* NSApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 76675FF2149D390000EBA3A4 /* NSApp.mm */; };
-		76675FF9149D5EE200EBA3A4 /* NSApp-Menus.mm in Sources */ = {isa = PBXBuildFile; fileRef = 76675FF8149D5EE200EBA3A4 /* NSApp-Menus.mm */; };
-		76675FFB149D8DDA00EBA3A4 /* libboost_signals-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 76675FFA149D8DDA00EBA3A4 /* libboost_signals-mt.dylib */; };
+		766F66AA149FB85F003D5ACA /* NSApp-Menus.mm in Sources */ = {isa = PBXBuildFile; fileRef = 76675FF8149D5EE200EBA3A4 /* NSApp-Menus.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +20,7 @@
 		76675FC3149C533800EBA3A4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		76675FC4149C533800EBA3A4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		76675FC5149C533800EBA3A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		76675FC8149C533800EBA3A4 /* Myron-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Myron-Info.plist"; sourceTree = "<group>"; };
+		76675FC8149C533800EBA3A4 /* Myron-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Myron-Info.plist"; path = "MacOS/Myron-Info.plist"; sourceTree = "<group>"; };
 		76675FCA149C533800EBA3A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		76675FCC149C533800EBA3A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Myron/main.m; sourceTree = "<group>"; };
 		76675FCE149C533800EBA3A4 /* Myron-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Myron-Prefix.pch"; path = "Myron/Myron-Prefix.pch"; sourceTree = "<group>"; };
@@ -33,14 +29,13 @@
 		76675FD3149C533800EBA3A4 /* ifAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ifAppDelegate.m; path = Myron/ifAppDelegate.m; sourceTree = "<group>"; };
 		76675FD6149C533800EBA3A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		76675FDE149C535600EBA3A4 /* Myron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Myron.h; path = Myron/Myron.h; sourceTree = "<group>"; };
-		76675FDF149C536700EBA3A4 /* Myron-Mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "Myron-Mac.mm"; path = "Myron/Myron-Mac.mm"; sourceTree = "<group>"; };
+		76675FDF149C536700EBA3A4 /* Myron-Mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "Myron-Mac.mm"; path = "Myron/MacOS/Myron-Mac.mm"; sourceTree = "<group>"; };
 		76675FE6149C62BD00EBA3A4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		76675FF2149D390000EBA3A4 /* NSApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NSApp.mm; path = Myron/MacOS/NSApp.mm; sourceTree = "<group>"; };
-		76675FF5149D458F00EBA3A4 /* NSApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSApp.h; path = Myron/NSApp.h; sourceTree = "<group>"; };
-		76675FF6149D45CD00EBA3A4 /* Myron-Mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Myron-Mac.h"; path = "Myron/Myron-Mac.h"; sourceTree = "<group>"; };
-		76675FF7149D5E2700EBA3A4 /* NSApp-Menus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApp-Menus.h"; sourceTree = "<group>"; };
-		76675FF8149D5EE200EBA3A4 /* NSApp-Menus.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSApp-Menus.mm"; sourceTree = "<group>"; };
-		76675FFA149D8DDA00EBA3A4 /* libboost_signals-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_signals-mt.dylib"; path = "usr/local/lib/libboost_signals-mt.dylib"; sourceTree = SDKROOT; };
+		76675FF5149D458F00EBA3A4 /* NSApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSApp.h; path = Myron/MacOS/NSApp.h; sourceTree = "<group>"; };
+		76675FF6149D45CD00EBA3A4 /* Myron-Mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Myron-Mac.h"; path = "Myron/MacOS/Myron-Mac.h"; sourceTree = "<group>"; };
+		76675FF7149D5E2700EBA3A4 /* NSApp-Menus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSApp-Menus.h"; path = "Myron/MacOS/NSApp-Menus.h"; sourceTree = "<group>"; };
+		76675FF8149D5EE200EBA3A4 /* NSApp-Menus.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSApp-Menus.mm"; path = "Myron/MacOS/NSApp-Menus.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76675FFB149D8DDA00EBA3A4 /* libboost_signals-mt.dylib in Frameworks */,
 				76675FC1149C533800EBA3A4 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,7 +53,6 @@
 		76675FB1149C533800EBA3A4 = {
 			isa = PBXGroup;
 			children = (
-				76675FFA149D8DDA00EBA3A4 /* libboost_signals-mt.dylib */,
 				76675FE5149C624100EBA3A4 /* Ignore */,
 				76675FDD149C534700EBA3A4 /* Myron Library */,
 				76675FC6149C533800EBA3A4 /* Myron */,
@@ -115,13 +108,8 @@
 		76675FDD149C534700EBA3A4 /* Myron Library */ = {
 			isa = PBXGroup;
 			children = (
+				766F66AB14A01ECC003D5ACA /* Mac */,
 				76675FDE149C535600EBA3A4 /* Myron.h */,
-				76675FF6149D45CD00EBA3A4 /* Myron-Mac.h */,
-				76675FDF149C536700EBA3A4 /* Myron-Mac.mm */,
-				76675FF2149D390000EBA3A4 /* NSApp.mm */,
-				76675FF5149D458F00EBA3A4 /* NSApp.h */,
-				76675FF7149D5E2700EBA3A4 /* NSApp-Menus.h */,
-				76675FF8149D5EE200EBA3A4 /* NSApp-Menus.mm */,
 			);
 			name = "Myron Library";
 			sourceTree = "<group>";
@@ -139,6 +127,19 @@
 				76675FCF149C533800EBA3A4 /* Credits.rtf */,
 			);
 			name = Ignore;
+			sourceTree = "<group>";
+		};
+		766F66AB14A01ECC003D5ACA /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				76675FF6149D45CD00EBA3A4 /* Myron-Mac.h */,
+				76675FDF149C536700EBA3A4 /* Myron-Mac.mm */,
+				76675FF2149D390000EBA3A4 /* NSApp.mm */,
+				76675FF5149D458F00EBA3A4 /* NSApp.h */,
+				76675FF7149D5E2700EBA3A4 /* NSApp-Menus.h */,
+				76675FF8149D5EE200EBA3A4 /* NSApp-Menus.mm */,
+			);
+			name = Mac;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,9 +192,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76675FCB149C533800EBA3A4 /* InfoPlist.strings in Resources */,
-				76675FD1149C533800EBA3A4 /* Credits.rtf in Resources */,
-				76675FD7149C533800EBA3A4 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,9 +203,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				76675FE0149C536700EBA3A4 /* Myron-Mac.mm in Sources */,
+				766F66AA149FB85F003D5ACA /* NSApp-Menus.mm in Sources */,
 				76675FE7149C62BD00EBA3A4 /* main.cpp in Sources */,
 				76675FF3149D390000EBA3A4 /* NSApp.mm in Sources */,
-				76675FF9149D5EE200EBA3A4 /* NSApp-Menus.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +246,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -275,7 +273,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -297,9 +295,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Myron/Myron-Prefix.pch";
-				INFOPLIST_FILE = "Myron/Myron-Info.plist";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INFOPLIST_FILE = "Myron/MacOS/Myron-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -311,9 +308,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Myron/Myron-Prefix.pch";
-				INFOPLIST_FILE = "Myron/Myron-Info.plist";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INFOPLIST_FILE = "Myron/MacOS/Myron-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -338,6 +334,7 @@
 				76675FDC149C533800EBA3A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

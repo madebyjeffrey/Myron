@@ -191,6 +191,12 @@ static void restoreApp()
     {
         int x = (int)frameSize.width;
         int y = (int)frameSize.height;
+
+        if (win->resize.empty())
+        {
+            std::cout << "signal is empty" << std::endl;
+        }
+
         
         auto result = win->resize(x,y);
         
@@ -219,6 +225,16 @@ static void restoreApp()
             n->resize(x,y);
         }
     }    
+}
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    Myron::MacWindow *win = [self windowObjectFor: notification.object];
+    
+    if (win != nullptr)
+    {
+        auto result = win->close();
+    }
 }
 
 @end

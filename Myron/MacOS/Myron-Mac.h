@@ -26,10 +26,6 @@ namespace Myron
         MacWindow(int width, int height);
 
     public:
-        std::function<bool(int&,int&)> resize;
-        std::function<bool()> close;
-
-        
         MacWindow(const MacWindow&) = default;
         MacWindow() = default;
         
@@ -40,9 +36,6 @@ namespace Myron
         
         virtual int width();
         virtual int height();
-        
-        virtual void addEvent(Events e, std::function<bool(int&, int&)> binary);        
-      //  virtual void addEvent(Events e, std::function<bool()> nullary);
         
         NSWindow *windowObject()
         {   return win; }

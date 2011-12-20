@@ -16,13 +16,6 @@ namespace bs2 = boost::signals2;
 
 namespace Myron 
 {
-    enum Events
-    {
-        Resize,
-        Draw,
-        Close
-    };
-    
     class Context
     {
         int nothing;
@@ -36,6 +29,7 @@ namespace Myron
         virtual int height() = 0;
         
         bs2::signal<bool(int&,int&)> resize;
+        bs2::signal<bool()> close;
         
 //        virtual void addEvent(Events e, std::function<bool(int&, int&)> binary) = 0; // resize
 //        virtual void addEvent(Events e, std::function<bool()> nullary) = 0;           // close

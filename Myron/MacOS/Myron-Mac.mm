@@ -60,21 +60,7 @@ namespace Myron
     {
         return 0;
     }
-    
-    void MacWindow::addEvent(Events e, std::function<bool(int&, int&)> binary) 
-    {
-        if (e == Events::Resize)
-            resize = binary;
-        
-//        resize(10, 10);
-    }
-    
-/*    void MacWindow::addEvent(Events e, std::function<bool()> nullary)
-    {
-        if (e == Events::Close)
-            close = nullary;
-    }
-  */  
+
     
     
     void Init(std::function<bool()> setup)
