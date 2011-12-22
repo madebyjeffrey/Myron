@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Myron", "Myron.vcxproj", "{32734904-EBB3-470B-A6AA-C1B2EA476C30}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32734904-EBB3-470B-A6AA-C1B2EA476C30}.Debug|Win32.ActiveCfg = Debug|Win32
+		{32734904-EBB3-470B-A6AA-C1B2EA476C30}.Debug|Win32.Build.0 = Debug|Win32
+		{32734904-EBB3-470B-A6AA-C1B2EA476C30}.Release|Win32.ActiveCfg = Release|Win32
+		{32734904-EBB3-470B-A6AA-C1B2EA476C30}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

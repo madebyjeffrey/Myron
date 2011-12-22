@@ -15,7 +15,7 @@
 #include "Myron.h"
 
 bool setup();
-bool Resize(Myron::Window &win, int &width, int &height);
+bool Resize(Myron::Window *win, int &width, int &height);
 bool Close(Myron::Window &win);
 bool Render(Myron::Window &win, float dt);
 
@@ -26,7 +26,7 @@ bool setup()
     std::cout << "setup()" << std::endl;
     Myron::Window &main = Myron::createWindow(640, 480);
     
-    main.events.resize = std::bind(Resize, std::ref(main), _1, _2);
+    main.events.resize = std::bind(Resize, &main, _1, _2);
     main.events.close = std::bind(Close, std::ref(main));
     main.events.render = std::bind(Render, std::ref(main), _1);
     
@@ -41,7 +41,7 @@ bool Close(Myron::Window &win)
     return true;
 }
 
-bool Resize(Myron::Window &win, int &width, int &height)
+bool Resize(Myron::Window *win, int &width, int &height)
 {
 //    float ar = (float)width / (float)height;
     height = (int)(width / 1.66);
