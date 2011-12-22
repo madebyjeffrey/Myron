@@ -35,7 +35,8 @@ static void restoreApp()
     
     if (self)
     {
-        windowList = new std::vector<Myron::MacWindow*>();
+        // not necessary anymore
+//        windowList = new std::vector<Myron::MacWindow*>();
     
     }
 
@@ -45,7 +46,7 @@ static void restoreApp()
 
 - (void) dealloc
 {
-    delete windowList;
+//    delete windowList;
 }
 
 //@synthesize window, width, height;
@@ -151,7 +152,7 @@ static void restoreApp()
 
 
 /**************** NS WINDOW DELEGATE ****************/
-
+/*
 - (Myron::MacWindow *) windowObjectFor: (NSWindow*) window
 {
     for (Myron::MacWindow * n : *windowList)
@@ -164,11 +165,12 @@ static void restoreApp()
     }
     return nullptr;
     
-}
+}*/
 
 - (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize
 {
-    Myron::MacWindow *win = [self windowObjectFor: sender];
+    
+    Myron::MacWindow *win = Myron::windowForHandle(sender);
     
     if (win != nullptr)
     {
@@ -195,37 +197,38 @@ static void restoreApp()
 {
     NSWindow *obj = [notification object];
     
-    for (Myron::MacWindow* n : *windowList)
+    Myron::MacWindow *win = Myron::windowForHandle(obj);
+    
+    if (win)
     {
-        NSWindow *win = n->windowObject();
-        if (win == obj)
-        {
-            NSRect r = [win frame];
-            // n is our object!
-            int x = (int)r.size.width;
-            int y = (int)r.size.height;
-            
-            try {
-                n->events.resize(x,y);
-            }
-            catch (std::bad_function_call)
-            {
-                std::cout << "No resize function registered" << std::endl;
-            }
+        NSRect r = [obj frame];
+        // n is our object!
+        int x = (int)r.size.width;
+        int y = (int)r.size.height;
+        
+        try {
+            win->events.resize(x,y);
         }
-    }    
+        catch (std::bad_function_call)
+        {
+            std::cout << "No resize function registered" << std::endl;
+        }
+    }
 }
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-    Myron::MacWindow *win = [self windowObjectFor: notification.object];
+    Myron::MacWindow *win = Myron::windowForHandle(notification.object); 
     
-    try {
-        win->events.close();
-    } 
-    catch (std::bad_function_call)
+    if (win)
     {
-        std::cout << "No registered close function" << std::endl;
+        try {
+            win->events.close();
+        } 
+        catch (std::bad_function_call)
+        {
+            std::cout << "No registered close function" << std::endl;
+        }
     }
 }
 

@@ -17,6 +17,9 @@
 
 namespace Myron
 {
+    
+
+    
     class MacWindow : public Window
     {
         NSWindow *win;
@@ -39,6 +42,8 @@ namespace Myron
         virtual int width();
         virtual int height();
 
+        virtual void showWindow();
+        
         virtual void setFrame(int x, int y, int cx, int cy);
         virtual void setFocus();
         virtual void setRenderRate(float rate = 60);
@@ -46,6 +51,8 @@ namespace Myron
         NSWindow *windowObject()
         {   return win; }
     };
+    
+    MacWindow* windowForHandle(NSWindow *win);
 }
 
 #endif

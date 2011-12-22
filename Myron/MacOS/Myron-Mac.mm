@@ -53,7 +53,7 @@ CVReturn displayCallback(CVDisplayLinkRef displayLink, const CVTimeStamp *inNow,
 namespace Myron
 {
     AppDelegate *appDelegate;
-    
+    std::vector<Myron::MacWindow*> windowList;
 
     MacWindow::MacWindow(int width, int height)
     {
@@ -134,7 +134,10 @@ namespace Myron
         }
     }
 
-    
+    void MacWindow::showWindow()
+    {
+        setFocus();
+    }
     
     void Init(std::function<bool()> setup)
     {
@@ -157,14 +160,26 @@ namespace Myron
     {
         
         std::cout << "Create Window" << std::endl;
-        std::cout << "Number of Windows: " << appDelegate->windowList->size() << std::endl;
+        std::cout << "Number of Windows: " << windowList.size() << std::endl;
         MacWindow *a = new MacWindow(width, height);
-        appDelegate->windowList->push_back(a);
+        windowList.push_back(a);
         
-        std::cout << "Number of Windows: " << appDelegate->windowList->size() << std::endl;
+        std::cout << "Number of Windows: " << windowList.size() << std::endl;
         
         return *a;
     }
+    
+    MacWindow* windowForHandle(NSWindow *win)
+	{
+		for (auto i = begin(windowList); i != end(windowList); i++)
+		{
+			MacWindow *w = *i;
+            
+			if (w->windowObject() == win) return w;
+		}
+		return NULL;
+	}
+
     
 }
 

@@ -19,12 +19,11 @@
 {
 @public
     std::function<bool()> setupFunc;
-    std::vector<Myron::MacWindow*> *windowList;
 }
 -(void) createMenu;
 
 -(NSString *) applicationName;
-- (Myron::MacWindow *) windowObjectFor: (NSWindow*) window;
+//- (Myron::MacWindow *) windowObjectFor: (NSWindow*) window;
 @end
 
 
