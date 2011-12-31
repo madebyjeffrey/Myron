@@ -72,6 +72,10 @@ namespace Myron
                                             backing: NSBackingStoreBuffered 
                                               defer: NO];
         
+        view = [[MyronView alloc] initWithFrame: [[win contentView] bounds]];
+        [[win contentView] addSubview: view];
+        
+        [view setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
 
         [win makeKeyAndOrderFront: nil];            
         [win makeMainWindow];
@@ -80,6 +84,14 @@ namespace Myron
         
 //            [appDelegate createMenu];
 
+    }
+    
+    void MacWindow::makeContextCurrent()
+    {
+        if (view != nullptr)
+        {
+            [view.context makeCurrentContext];
+        }
     }
         
     int MacWindow::width() 
@@ -96,7 +108,7 @@ namespace Myron
         return (int)r.size.height;
     }
     
-    void MacWindow::setFrame(int x, int y, int cx, int cy)
+    void MacWindow::setBounds(int x, int y, int cx, int cy)
     {
         NSRect r = NSMakeRect(x, y, cx, cy);
         
