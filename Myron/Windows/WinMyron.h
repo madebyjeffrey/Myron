@@ -16,6 +16,7 @@
 #include <iostream>
 
 
+#include <gl/GL.h>
 #include "../Myron.h"
 
 namespace Myron 
@@ -27,20 +28,23 @@ namespace Myron
     {
 		HINSTANCE hInstance;
 		HWND hWnd;
+		HDC hDC;
         friend Window &createWindow(int width, int height);
     public:
 		WinWindow() : hInstance(NULL), hWnd(NULL) { }
         WinWindow(int width, int height);
+		bool initGL(int pixeldepth);
 		bool registerClass();
 		bool createWindow(int width, int height);
 
 		HWND handle() { return hWnd; }
+		HDC getDC() { return hDC; }
         virtual void showWindow();
 
         virtual int width();
         virtual int height();
         
-        virtual void setFrame(int x, int y, int cx, int cy);
+        virtual void setBounds(int x, int y, int cx, int cy);
         virtual void setFocus();
         virtual void setRenderRate(float rate = 60);
     };

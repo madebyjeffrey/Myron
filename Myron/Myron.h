@@ -39,7 +39,7 @@ namespace Myron
 
         virtual void showWindow() {};
         
-        virtual void setFrame(int x, int y, int cx, int cy) {};
+        virtual void setBounds(int x, int y, int cx, int cy) {};
         virtual void setFocus() {};
         virtual void setRenderRate(float rate = 60) {};
         

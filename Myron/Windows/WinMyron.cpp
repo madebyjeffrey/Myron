@@ -110,6 +110,7 @@ namespace Myron
         hInstance = GetModuleHandle(NULL);
         registerClass();
         createWindow(width, height);
+		initGL(32);
         showWindow();
     }
 
@@ -121,6 +122,93 @@ namespace Myron
         
         return *windowList.back();
     }
+
+	bool WinWindow::initGL(int pixelDepth)
+	{
+		hDC = GetDC(handle());
+		if (hDC == 0)
+		{
+			// kill wnd
+			return false;
+		}
+
+		PIXELFORMATDESCRIPTOR pfd;
+
+		ZeroMemory(&pfd, sizeof(pfd));
+
+		pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+		pfd.nVersion = 1;
+		pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+		pfd.iPixelType = PFD_TYPE_RGBA;
+		pfd.cColorBits = pixelDepth;
+		//pfd.cDepthBits = pixelDepth;
+		pfd.iLayerType = PFD_MAIN_PLANE; // apparently ignored?
+	
+		GLuint pixelFormat = ChoosePixelFormat(hDC, &pfd);
+		if (pixelFormat == 0)
+		{
+			// kill wnd
+			return false;
+		}
+
+		if (!SetPixelFormat(hDC, pixelFormat, &pfd))
+		{
+			// kill wnd
+			return false;
+		}
+
+		HGLRC wGL = wglCreateContext(hDC);
+		if (wGL == 0)
+		{
+			// kill wnd
+			return false;
+		}
+
+		if (!wglMakeCurrent(hDC, wGL))
+		{
+			// kill wnd
+			return false;
+		}
+
+		/*GLenum err = glewInit();
+		if (GLEW_OK != err)
+		{
+			// kill wnd
+			return false;
+		}
+
+		int attribs[] = 
+		{
+			WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
+			WGL_CONTEXT_MINOR_VERSION_ARB, 2,
+			WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
+			0
+		};
+
+		HGLRC wGL32;
+
+		if (wglewIsSupported("WGL_ARB_create_context") == 1)
+		{
+			wGL32 = wglCreateContextAttribsARB(hDC, 0, attribs);
+			wglMakeCurrent(NULL, NULL);
+			wglDeleteContext(wGL);
+			wglMakeCurrent(hDC, wGL32);
+		}
+		else
+		{
+			// no 3.2 possible
+			return false;
+		}
+
+		int glVersion[2];
+		glGetIntegerv(GL_MAJOR_VERSION, &glVersion[0]);
+		glGetIntegerv(GL_MINOR_VERSION, &glVersion[1]);
+
+		if (!wGL32)
+			return false;*/
+
+		return true;
+	}
 
     bool WinWindow::registerClass()
     {
@@ -166,18 +254,49 @@ namespace Myron
 
     void Init(std::function<bool()> setup)
     {
+		bool done = false;
         MSG msg;
 
         if (!setup()) return;
 
-        while (GetMessage(&msg, NULL, 0, 0))
+        /*while (GetMessage(&msg, NULL, 0, 0))
 	    {
 		    //if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
 		    {
 			    TranslateMessage(&msg);
 			    DispatchMessage(&msg);
 		    }
-	    }
+	    }*/
+		while (!done)
+		{
+			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+			{
+				if (msg.message == WM_QUIT)
+				{
+					done = true;
+				}
+				else
+				{
+					TranslateMessage(&msg);
+					DispatchMessage(&msg);
+				}
+			}
+			else
+			{
+				for (auto win = begin(windowList); win != end(windowList); ++win)
+				{
+					try {
+						(*win)->events.render(0.0f);
+					}
+					catch (std::bad_function_call)
+					{
+						std::cout << "No event render" << std::endl;
+					}
+
+					SwapBuffers((*win)->getDC());
+				}
+			}
+		}
     }
 
 
@@ -197,7 +316,7 @@ namespace Myron
         return r.bottom - r.top + 1;
     }
         
-    void WinWindow::setFrame(int x, int y, int cx, int cy)
+    void WinWindow::setBounds(int x, int y, int cx, int cy)
     {
         SetWindowPos(hWnd, HWND_TOP, x, y, cx, cy, SWP_SHOWWINDOW);
     }
