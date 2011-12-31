@@ -16,6 +16,7 @@
 #include <iostream>
 
 
+#include <GL/glew.h>
 #include <gl/GL.h>
 #include "../Myron.h"
 
@@ -43,7 +44,7 @@ namespace Myron
 
 		HWND handle() { return hWnd; }
 		HDC getDC() { return hDC; }
-		void setGLContext();
+		virtual void makeContextCurrent();
         virtual void showWindow();
 
         virtual int width();

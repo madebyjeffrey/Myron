@@ -207,11 +207,6 @@ namespace Myron
 		if (!wGL32)
 			return false;*/
 
-		std::cout << "GL_VENDOR: " << glGetString(GL_VENDOR) << std::endl;
-		std::cout << "GL_RENDERER: " << glGetString(GL_RENDERER) << std::endl;
-		std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << std::endl;
-		std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(0x8B8C) << std::endl;
-
 		return true;
 	}
 
@@ -223,15 +218,10 @@ namespace Myron
 
         wcex.style            = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
         wcex.lpfnWndProc    = WndProc;
-        //wcex.cbClsExtra        = 0;
-        //wcex.cbWndExtra        = 0;
         wcex.hInstance        = hInstance;
-        //wcex.hIcon            = NULL;
         wcex.hCursor        = LoadCursor(NULL, IDC_ARROW);
         wcex.hbrBackground    = (HBRUSH)(COLOR_WINDOW+1);
-        //wcex.lpszMenuName    = NULL;
         wcex.lpszClassName    = className;
-        //wcex.hIconSm        = NULL;
 
         return RegisterClassEx(&wcex)!=0;
     }
@@ -263,20 +253,14 @@ namespace Myron
         MSG msg;
 		DWORD lastFrameTime;
 
+		GLenum err = glewInit();
+
         if (!setup()) return;
 
 		// render initial frame before loop
 		lastFrameTime = timeGetTime();
 		doRender(0.0f);
 
-        /*while (GetMessage(&msg, NULL, 0, 0))
-	    {
-		    //if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-		    {
-			    TranslateMessage(&msg);
-			    DispatchMessage(&msg);
-		    }
-	    }*/
 		while (!done)
 		{
 			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -295,8 +279,7 @@ namespace Myron
 			{
 				DWORD now = timeGetTime();
 				float dt = (now - lastFrameTime) / 1000.0f;
-				//std::cout << "dt = " << dt << "s" << std::endl;
-				//doRender(dt);
+				doRender(dt);
 				lastFrameTime = now;
 			}
 		}
@@ -307,7 +290,7 @@ namespace Myron
 		for (auto win = begin(windowList); win != end(windowList); ++win)
 		{
 			try {
-				(*win)->setGLContext();
+				(*win)->makeContextCurrent();
 				(*win)->events.render(dt);
 			}
 			catch (std::bad_function_call)
@@ -320,7 +303,7 @@ namespace Myron
 	}
 
 
-	void WinWindow::setGLContext()
+	void WinWindow::makeContextCurrent()
 	{
 		wglMakeCurrent(hDC, wGL);
 	}
