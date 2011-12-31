@@ -61,8 +61,17 @@ namespace Myron
         Events events;
     };
 #endif
+    
     void Init(std::function<bool()> setup);
     Window &createWindow(int width, int height);
+    
+    namespace Keys
+    {
+        // catagories of keys
+        const uint32_t function_key = 2;
+        
+        constexpr uint32_t Fn(uint32_t n);
+    }
 }
 
 
