@@ -52,6 +52,8 @@ namespace Myron
         
         NSWindow *windowObject()
         {   return win; }
+        MyronView *windowView()
+        {   return view; }
     };
     
     MacWindow* windowForHandle(NSWindow *win);
