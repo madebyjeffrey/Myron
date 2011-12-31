@@ -63,6 +63,8 @@ bool setup()
     main.setRenderRate();
     main.makeContextCurrent();
     
+    std::cout << "Function Key F1: " << Myron::Keys::Fn(1) << std::endl;
+    
     RenderInfo();
     
     return true;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7643087614AF9C5900327276 /* Myron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7643087514AF9C5900327276 /* Myron.cpp */; };
 		76675FC1149C533800EBA3A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76675FC0149C533800EBA3A4 /* Cocoa.framework */; };
 		76675FE0149C536700EBA3A4 /* Myron-Mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 76675FDF149C536700EBA3A4 /* Myron-Mac.mm */; };
 		76675FE7149C62BD00EBA3A4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76675FE6149C62BD00EBA3A4 /* main.cpp */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7643087514AF9C5900327276 /* Myron.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Myron.cpp; path = Myron/Myron.cpp; sourceTree = "<group>"; };
 		76675FBC149C533800EBA3A4 /* Myron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Myron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76675FC0149C533800EBA3A4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		76675FC3149C533800EBA3A4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -105,6 +107,7 @@
 			children = (
 				766F66AB14A01ECC003D5ACA /* Mac */,
 				76675FDE149C535600EBA3A4 /* Myron.h */,
+				7643087514AF9C5900327276 /* Myron.cpp */,
 			);
 			name = "Myron Library";
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				76675FE7149C62BD00EBA3A4 /* main.cpp in Sources */,
 				76675FF3149D390000EBA3A4 /* NSApp.mm in Sources */,
 				769AC32A14A37170005430D6 /* MyronView.m in Sources */,
+				7643087614AF9C5900327276 /* Myron.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
