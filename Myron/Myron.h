@@ -73,9 +73,34 @@ namespace Myron
         #endif
         
         // catagories of keys
+        const uint32_t nav_key = 1;
         const uint32_t function_key = 2;
         
         constexpr uint32_t Fn(uint32_t n);
+
+        const uint32_t ArrowLeft = (nav_key << 8) | 1;
+        const uint32_t ArrowRight = (nav_key << 8) | 2;
+        const uint32_t ArrowUp = (nav_key << 8) | 3;
+        const uint32_t ArrowDown = (nav_key << 8) | 4;
+        const uint32_t PageUp = (nav_key << 8) | 5;
+        const uint32_t PageDown = (nav_key << 8) | 6;
+        const uint32_t Home = (nav_key << 8) | 7;
+        const uint32_t End = (nav_key << 8) | 8;
+        const uint32_t BackDelete = (nav_key << 8) | 9;
+        const uint32_t Backspace = BackDelete;
+        const uint32_t ForwardDelete = (nav_key << 8) | 10;
+        const uint32_t Tab = (nav_key << 8) | 11;
+        const uint32_t Return = (nav_key << 8) | 12;
+        const uint32_t Enter = Return;
+        const uint32_t Escape = (nav_key << 8) | 13;
+        
+        const uint32_t Shift = 1 << 12;
+        const uint32_t Control = 1 << 13;
+        const uint32_t Alt = 1 << 14;
+        const uint32_t Meta = Alt;
+        const uint32_t Command = 1 << 15;
+        const uint32_t Win = Command;
+        const uint32_t Super = Command;
     }
 }
 
