@@ -67,6 +67,11 @@ namespace Myron
     
     namespace Keys
     {
+        #ifdef _MSC_VER
+            typedef unsigned long uint32_t;
+            #define constexpr 
+        #endif
+        
         // catagories of keys
         const uint32_t function_key = 2;
         
