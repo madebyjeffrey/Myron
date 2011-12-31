@@ -13,11 +13,6 @@
 
 namespace Myron 
 {
-    class Context
-    {
-        int nothing;
-    };
-
     struct Events
     {
         std::function<bool(int&,int&)> resize;
@@ -43,6 +38,8 @@ namespace Myron
         virtual void setFocus() {};
         virtual void setRenderRate(float rate = 60) {};
         
+        virtual void makeContextCurrent() { };
+        
         Events events;
     };
 #else
@@ -59,7 +56,7 @@ namespace Myron
         virtual void setFocus() = 0;
         virtual void setRenderRate(float rate = 60) = 0;
         
-        virtual Context *context() = 0;
+        virtual void makeContextCurrent() = 0;
         
         Events events;
     };

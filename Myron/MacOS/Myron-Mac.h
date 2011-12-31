@@ -14,12 +14,14 @@
 #include <CoreVideo/CoreVideo.h>
 
 #include "Myron.h"
+#include "MyronView.h"
 
 namespace Myron
 {
     class MacWindow : public Window
     {
         NSWindow *win;
+        MyronView *view;
 
         CVDisplayLinkRef link;
         
@@ -46,7 +48,7 @@ namespace Myron
         virtual void setFocus();
         virtual void setRenderRate(float rate = 60);
         
-        virtual Context *context();
+        virtual void makeContextCurrent();
         
         NSWindow *windowObject()
         {   return win; }
