@@ -35,7 +35,9 @@ CVReturn displayCallback(CVDisplayLinkRef displayLink, const CVTimeStamp *inNow,
         Myron::MacWindow *window = static_cast<Myron::MacWindow*>(displayLinkContext);
         try
         {
+            window->makeContextCurrent();
             window->events.render(now - prev);
+            [[window->windowView() context] flushBuffer];
         }
         catch (std::bad_function_call)
         {
@@ -73,6 +75,13 @@ namespace Myron
                                               defer: NO];
         
         view = [[MyronView alloc] initWithFrame: [[win contentView] bounds]];
+
+        std::cout << "Bounds: " << [view frame].origin.x << " " 
+                                << [view frame].origin.y << " " 
+                                << [view frame].size.width << " " 
+                                << [view frame].size.height << " " 
+                                << std::endl;
+        
         [[win contentView] addSubview: view];
         
         [view setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
@@ -90,7 +99,10 @@ namespace Myron
     {
         if (view != nullptr)
         {
-            [view.context makeCurrentContext];
+            @autoreleasepool {
+                [view.context setView: view];
+                [view.context makeCurrentContext];
+            }
         }
     }
         
