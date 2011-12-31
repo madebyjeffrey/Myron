@@ -72,6 +72,7 @@ namespace Myron
                                             backing: NSBackingStoreBuffered 
                                               defer: NO];
         
+        
 
         [win makeKeyAndOrderFront: nil];            
         [win makeMainWindow];
@@ -96,7 +97,7 @@ namespace Myron
         return (int)r.size.height;
     }
     
-    void MacWindow::setFrame(int x, int y, int cx, int cy)
+    void MacWindow::setBounds(int x, int y, int cx, int cy)
     {
         NSRect r = NSMakeRect(x, y, cx, cy);
         

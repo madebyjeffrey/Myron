@@ -39,7 +39,7 @@ namespace Myron
 
         virtual void showWindow() {};
         
-        virtual void setFrame(int x, int y, int cx, int cy) {};
+        virtual void setBounds(int x, int y, int cx, int cy) {};
         virtual void setFocus() {};
         virtual void setRenderRate(float rate = 60) {};
         
@@ -55,9 +55,11 @@ namespace Myron
 
         virtual void showWindow() = 0;
         
-        virtual void setFrame(int x, int y, int cx, int cy) = 0;
+        virtual void setBounds(int x, int y, int cx, int cy) = 0;
         virtual void setFocus() = 0;
         virtual void setRenderRate(float rate = 60) = 0;
+        
+        virtual Context *context() = 0;
         
         Events events;
     };

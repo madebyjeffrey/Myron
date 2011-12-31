@@ -14,6 +14,7 @@
 		766F66AA149FB85F003D5ACA /* NSApp-Menus.mm in Sources */ = {isa = PBXBuildFile; fileRef = 76675FF8149D5EE200EBA3A4 /* NSApp-Menus.mm */; };
 		76711B9A14A10A48003A190E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76711B9914A10A48003A190E /* CoreVideo.framework */; };
 		76711B9D14A10A51003A190E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76711B9C14A10A51003A190E /* OpenGL.framework */; };
+		769AC32A14A37170005430D6 /* MyronView.m in Sources */ = {isa = PBXBuildFile; fileRef = 769AC32914A37170005430D6 /* MyronView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		76675FF8149D5EE200EBA3A4 /* NSApp-Menus.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSApp-Menus.mm"; path = "Myron/MacOS/NSApp-Menus.mm"; sourceTree = "<group>"; };
 		76711B9914A10A48003A190E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		76711B9C14A10A51003A190E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		769AC32814A37170005430D6 /* MyronView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyronView.h; path = Myron/MacOS/MyronView.h; sourceTree = "<group>"; };
+		769AC32914A37170005430D6 /* MyronView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyronView.m; path = Myron/MacOS/MyronView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +118,8 @@
 				76675FF5149D458F00EBA3A4 /* NSApp.h */,
 				76675FF7149D5E2700EBA3A4 /* NSApp-Menus.h */,
 				76675FF8149D5EE200EBA3A4 /* NSApp-Menus.mm */,
+				769AC32814A37170005430D6 /* MyronView.h */,
+				769AC32914A37170005430D6 /* MyronView.m */,
 			);
 			name = Mac;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 				766F66AA149FB85F003D5ACA /* NSApp-Menus.mm in Sources */,
 				76675FE7149C62BD00EBA3A4 /* main.cpp in Sources */,
 				76675FF3149D390000EBA3A4 /* NSApp.mm in Sources */,
+				769AC32A14A37170005430D6 /* MyronView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
