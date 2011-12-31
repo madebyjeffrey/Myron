@@ -29,16 +29,21 @@ namespace Myron
 		HINSTANCE hInstance;
 		HWND hWnd;
 		HDC hDC;
+		HGLRC wGL;
+		float renderRate;
+
         friend Window &createWindow(int width, int height);
+
     public:
 		WinWindow() : hInstance(NULL), hWnd(NULL) { }
         WinWindow(int width, int height);
-		bool initGL(int pixeldepth);
+		bool initGL();
 		bool registerClass();
 		bool createWindow(int width, int height);
 
 		HWND handle() { return hWnd; }
 		HDC getDC() { return hDC; }
+		void setGLContext();
         virtual void showWindow();
 
         virtual int width();
@@ -52,6 +57,7 @@ namespace Myron
 	std::vector<WinWindow*> windowList;
     
     void Init(std::function<bool()> setup);
+	void doRender(float dt);
     Window &createWindow(int width, int height);
 	Window* windowForHandle(HWND hWnd);
 }

@@ -11,7 +11,7 @@ namespace Myron
 
 			if (w->handle() == hWnd) return w;
 		}
-		return NULL;
+		return nullptr;
 	}
 
     LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -19,8 +19,8 @@ namespace Myron
 		Window *win = nullptr;
 		int cx, cy, cx2, cy2;
         RECT *r;	
-	PAINTSTRUCT ps;
-	HDC hdc;
+	//PAINTSTRUCT ps;
+	//HDC hdc;
 
 	switch (message)
 	{
@@ -89,11 +89,11 @@ namespace Myron
 			return FALSE;
 			break;
 
-	case WM_PAINT:
+	/*case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		// TODO: Add any drawing code here...
 		EndPaint(hWnd, &ps);
-		break;
+		break;*/
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -110,8 +110,9 @@ namespace Myron
         hInstance = GetModuleHandle(NULL);
         registerClass();
         createWindow(width, height);
-		initGL(32);
+		initGL();
         showWindow();
+		setRenderRate(30);
     }
 
     Window &createWindow(int width, int height)
@@ -123,7 +124,7 @@ namespace Myron
         return *windowList.back();
     }
 
-	bool WinWindow::initGL(int pixelDepth)
+	bool WinWindow::initGL()
 	{
 		hDC = GetDC(handle());
 		if (hDC == 0)
@@ -132,16 +133,15 @@ namespace Myron
 			return false;
 		}
 
-		PIXELFORMATDESCRIPTOR pfd;
-
-		ZeroMemory(&pfd, sizeof(pfd));
+		PIXELFORMATDESCRIPTOR pfd = {0};
 
 		pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 		pfd.nVersion = 1;
-		pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+		pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER | PFD_GENERIC_ACCELERATED;
 		pfd.iPixelType = PFD_TYPE_RGBA;
-		pfd.cColorBits = pixelDepth;
-		//pfd.cDepthBits = pixelDepth;
+		pfd.cColorBits = 24;
+        pfd.cAlphaBits = 8;
+		pfd.cDepthBits = 24;
 		pfd.iLayerType = PFD_MAIN_PLANE; // apparently ignored?
 	
 		GLuint pixelFormat = ChoosePixelFormat(hDC, &pfd);
@@ -157,7 +157,7 @@ namespace Myron
 			return false;
 		}
 
-		HGLRC wGL = wglCreateContext(hDC);
+		wGL = wglCreateContext(hDC);
 		if (wGL == 0)
 		{
 			// kill wnd
@@ -207,26 +207,31 @@ namespace Myron
 		if (!wGL32)
 			return false;*/
 
+		std::cout << "GL_VENDOR: " << glGetString(GL_VENDOR) << std::endl;
+		std::cout << "GL_RENDERER: " << glGetString(GL_RENDERER) << std::endl;
+		std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << std::endl;
+		std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(0x8B8C) << std::endl;
+
 		return true;
 	}
 
     bool WinWindow::registerClass()
     {
-        WNDCLASSEX wcex;
+		WNDCLASSEX wcex = {0};
 
         wcex.cbSize = sizeof(WNDCLASSEX);
 
         wcex.style            = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
         wcex.lpfnWndProc    = WndProc;
-        wcex.cbClsExtra        = 0;
-        wcex.cbWndExtra        = 0;
+        //wcex.cbClsExtra        = 0;
+        //wcex.cbWndExtra        = 0;
         wcex.hInstance        = hInstance;
-        wcex.hIcon            = NULL;
+        //wcex.hIcon            = NULL;
         wcex.hCursor        = LoadCursor(NULL, IDC_ARROW);
         wcex.hbrBackground    = (HBRUSH)(COLOR_WINDOW+1);
-        wcex.lpszMenuName    = NULL;
+        //wcex.lpszMenuName    = NULL;
         wcex.lpszClassName    = className;
-        wcex.hIconSm        = NULL;
+        //wcex.hIconSm        = NULL;
 
         return RegisterClassEx(&wcex)!=0;
     }
@@ -256,8 +261,13 @@ namespace Myron
     {
 		bool done = false;
         MSG msg;
+		DWORD lastFrameTime;
 
         if (!setup()) return;
+
+		// render initial frame before loop
+		lastFrameTime = timeGetTime();
+		doRender(0.0f);
 
         /*while (GetMessage(&msg, NULL, 0, 0))
 	    {
@@ -283,22 +293,37 @@ namespace Myron
 			}
 			else
 			{
-				for (auto win = begin(windowList); win != end(windowList); ++win)
-				{
-					try {
-						(*win)->events.render(0.0f);
-					}
-					catch (std::bad_function_call)
-					{
-						std::cout << "No event render" << std::endl;
-					}
-
-					SwapBuffers((*win)->getDC());
-				}
+				DWORD now = timeGetTime();
+				float dt = (now - lastFrameTime) / 1000.0f;
+				//std::cout << "dt = " << dt << "s" << std::endl;
+				//doRender(dt);
+				lastFrameTime = now;
 			}
 		}
     }
 
+	void doRender(float dt)
+	{
+		for (auto win = begin(windowList); win != end(windowList); ++win)
+		{
+			try {
+				(*win)->setGLContext();
+				(*win)->events.render(dt);
+			}
+			catch (std::bad_function_call)
+			{
+				std::cout << "No event render" << std::endl;
+			}
+
+			SwapBuffers((*win)->getDC());
+		}
+	}
+
+
+	void WinWindow::setGLContext()
+	{
+		wglMakeCurrent(hDC, wGL);
+	}
 
     int WinWindow::width()
     {
@@ -323,11 +348,13 @@ namespace Myron
 
     void WinWindow::setFocus()
     {
-        SetWindowPos(hWnd, HWND_TOP, 0, 0, 0,0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+        //SetWindowPos(hWnd, HWND_TOP, 0, 0, 0,0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+        SetFocus(hWnd);
     }
 
     void WinWindow::setRenderRate(float rate)
     {
-        // not yet
+		// TODO: Validate 'rate'
+        renderRate = rate;
     }
 }
