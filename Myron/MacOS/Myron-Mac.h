@@ -11,6 +11,8 @@
 
 #include <Cocoa/Cocoa.h>
 #include <functional>
+#include <unordered_map>
+
 #include <CoreVideo/CoreVideo.h>
 
 #include "Myron.h"
@@ -22,6 +24,7 @@ namespace Myron
     {
         NSWindow *win;
         MyronView *view;
+        std::unordered_map<unichar, uint32_t> *keymap;
 
         CVDisplayLinkRef link;
         
@@ -36,6 +39,7 @@ namespace Myron
         
         virtual ~MacWindow()
         {
+            delete keymap;
             std::cout << "Destroyed" << std::endl;
         }
         
@@ -49,6 +53,8 @@ namespace Myron
         virtual void setRenderRate(float rate = 60);
         
         virtual void makeContextCurrent();
+
+        void updateKeyList();
         
         NSWindow *windowObject()
         {   return win; }

@@ -91,8 +91,27 @@ namespace Myron
         
         [win setDelegate: appDelegate];
         
+        keymap = new std::unordered_map<unichar, uint32_t>();
 //            [appDelegate createMenu];
 
+    }
+    
+    void MacWindow::updateKeyList()
+    {
+        if (keymap)
+        {
+            std::unordered_map<unichar, uint32_t> &keys = *keymap;
+            
+            keys[NSUpArrowFunctionKey] = Myron::Keys::ArrowUp;
+            keys[NSDownArrowFunctionKey] = Myron::Keys::ArrowDown;
+            keys[NSLeftArrowFunctionKey] = Myron::Keys::ArrowLeft;
+            keys[NSRightArrowFunctionKey] = Myron::Keys::ArrowRight;
+            keys[NSHomeFunctionKey] = Myron::Keys::Home;
+            keys[NSEndFunctionKey] = Myron::Keys::End;
+            keys[NSPageUpFunctionKey] = Myron::Keys::PageUp;
+            keys[NSPageDownFunctionKey] = Myron::Keys::PageDown;
+            //            keys[NSTab
+        }
     }
     
     void MacWindow::makeContextCurrent()

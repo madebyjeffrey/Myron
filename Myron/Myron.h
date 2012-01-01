@@ -18,6 +18,8 @@ namespace Myron
         std::function<bool(int&,int&)> resize;
         std::function<bool(void)> close;
         std::function<bool(float)> render;
+        std::function<bool(unsigned)> keyDown;
+        std::function<bool(unsigned)> keyUp;
     };
     
 #ifdef _MSC_VER

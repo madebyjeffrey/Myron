@@ -6,7 +6,13 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
+#include <iostream>
+#include <map>
+
+#include "Myron.h"
 #import "MyronView.h"
+
+uint32_t cocoaKeyToMyronKey(unichar c);
 
 @implementation MyronView
 
@@ -50,4 +56,36 @@
     // Drawing code here.
 }
 
+- (void)keyDown:(NSEvent *)theEvent
+{
+    NSString *chars = [theEvent charactersIgnoringModifiers];
+    
+    if ([chars length] == 1)
+    {
+        char c = [chars cStringUsingEncoding: NSUTF8StringEncoding][0];
+        
+        std::cout << " Char: " << (unsigned)c << std::endl;
+    }
+    //    std::cout << "Length of chars: " << [[theEvent charactersIgnoringModifiers] length] << std::endl;
+    
+}
+
+- (void)keyUp:(NSEvent *)theEvent
+{
+    
+}
+
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
+}
+
+
 @end
+
+uint32_t cocoaKeyToMyronKey(unichar c)
+{
+    
+    return 0;
+}
+
