@@ -27,6 +27,10 @@ namespace Myron
         std::function<bool(unsigned, unsigned, unsigned, unsigned)> mouseUp;
         std::function<bool(unsigned, unsigned)> mouseMove;
         std::function<bool(unsigned, unsigned, unsigned)> mouseDrag;
+        // gestures
+        //        std::function<bool(float)> magnify;
+        //        std::function<bool(float)> rotate;
+        //        std::function<bool(float, float)> swipe;
     };
     
 #ifdef _MSC_VER

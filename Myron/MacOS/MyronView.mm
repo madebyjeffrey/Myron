@@ -264,6 +264,25 @@ uint32_t cocoaKeyToMyronKey(unichar c);
     
 }
 
+
+#pragma mark Mouse Gestures
+
+- (void)magnifyWithEvent:(NSEvent *)event
+{
+    
+}
+
+- (void)rotateWithEvent:(NSEvent *)event
+{
+    
+}
+
+- (void)swipeWithEvent:(NSEvent *)event
+{
+    
+}
+
+
 - (BOOL)acceptsFirstResponder
 {
     return YES;
