@@ -8,6 +8,10 @@
 
 #include "Myron.h"
 
+#ifdef _MSVER 
+#define constexpr 
+#endif
+
 namespace Myron
 {
     namespace Keys {

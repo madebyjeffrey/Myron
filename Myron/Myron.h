@@ -12,6 +12,7 @@
 #include <functional>
 #include <unordered_map>
 #include <string>
+#include <cstdint>
 
 namespace Myron 
 {
@@ -51,6 +52,11 @@ namespace Myron
         virtual void setBounds(int x, int y, int cx, int cy) {};
         virtual void setFocus() {};
         virtual void setRenderRate(float rate = 60) {};
+
+		virtual void enableMouseMoveEvents() {};
+		virtual void disableMouseMoveEvents() {};
+		virtual bool receiveMouseMoveEvents() { return false; };
+        
         
         virtual void makeContextCurrent() { };
         

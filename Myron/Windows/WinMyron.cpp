@@ -40,28 +40,6 @@ namespace Myron
 			}
 			return FALSE;
 			break;
-		/*case WM_SIZE:
-			cx = LOWORD(lParam);
-			cy = HIWORD(lParam);
-
-			win = windowForHandle(hWnd);
-			if (win)
-			{
-				try {
-					win->events.resize(cx, cy);
-					if (cx != LOWORD(lParam) || cy != HIWORD(lParam))
-					{
-						// this doesn't seem to work... 
-						//SetWindowPos(hWnd, HWND_TOP, 0, 0, cx, cy, SWP_NOMOVE);
-					}
-				}
-				catch (std::bad_function_call)
-				{
-					std::cout << "No event resize" << std::endl;
-				}
-			}
-			break;
-			*/
 		case WM_SIZING:
 			r = (RECT*)lParam;
 			cx2 = cx = r->right - r->left + 1;

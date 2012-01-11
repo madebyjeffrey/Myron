@@ -39,6 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Libraries\GLEW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>c:\Libraries\GLEW\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -77,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Myron\main.cpp" />
+    <ClCompile Include="Myron\Myron.cpp" />
     <ClCompile Include="Myron\Windows\WinMyron.cpp" />
   </ItemGroup>
   <ItemGroup>

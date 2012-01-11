@@ -147,7 +147,7 @@ bool Close(Myron::Window &win)
 bool Resize(Myron::Window &win, int &width, int &height)
 {
 //    float ar = (float)width / (float)height;
-    height = width / 1.66;
+    height = static_cast<int>(width / 1.66);
 
 
     std::cout << "Resize: " << width << ", " << height << std::endl;
