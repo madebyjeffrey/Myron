@@ -12,6 +12,7 @@
 #include <Cocoa/Cocoa.h>
 #include <functional>
 #include <unordered_map>
+#include <vector>
 
 #include <CoreVideo/CoreVideo.h>
 
@@ -52,6 +53,21 @@ namespace Myron
         virtual void setFocus();
         virtual void setRenderRate(float rate = 60);
         
+        virtual void enableMouseMoveEvents()
+        {
+            [win setAcceptsMouseMovedEvents: YES];
+        }
+        
+        virtual void disableMouseMoveEvents() 
+        {
+            [win setAcceptsMouseMovedEvents: NO];
+        }
+        
+        virtual bool receiveMouseMoveEvents() 
+        {
+            return ([win acceptsMouseMovedEvents] == YES);
+        }
+        
         virtual void makeContextCurrent();
 
         void updateKeyList();
@@ -60,9 +76,13 @@ namespace Myron
         {   return win; }
         MyronView *windowView()
         {   return view; }
+        std::unordered_map<unichar, uint32_t> *keys()
+        {   return keymap; }
+        
     };
     
     MacWindow* windowForHandle(NSWindow *win);
+    uint32_t CocoaFlagstoMyron(NSUInteger flags);
 }
 
 #endif

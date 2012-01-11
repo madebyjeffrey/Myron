@@ -10,6 +10,8 @@
 #define Myron_h
 
 #include <functional>
+#include <unordered_map>
+#include <string>
 
 namespace Myron 
 {
@@ -18,8 +20,13 @@ namespace Myron
         std::function<bool(int&,int&)> resize;
         std::function<bool(void)> close;
         std::function<bool(float)> render;
-        std::function<bool(unsigned)> keyDown;
-        std::function<bool(unsigned)> keyUp;
+        std::function<bool(uint32_t)> keyDown;
+        std::function<bool(uint32_t)> keyUp;
+        // mouseDown :: x -> y -> button -> count
+        std::function<bool(unsigned, unsigned, unsigned, unsigned)> mouseDown;
+        std::function<bool(unsigned, unsigned, unsigned, unsigned)> mouseUp;
+        std::function<bool(unsigned, unsigned)> mouseMove;
+        std::function<bool(unsigned, unsigned, unsigned)> mouseDrag;
     };
     
 #ifdef _MSC_VER
@@ -31,6 +38,7 @@ namespace Myron
     protected:
         Window() {}; // apparently can't use = default; either.
     public:
+        virtual ~Window() { };
         virtual int width() { return 0;};
         virtual int height() { return 0;};
 
@@ -49,14 +57,19 @@ namespace Myron
     {
         friend Window &createWindow(int width, int height);
     public:
+        virtual ~Window() { };
         virtual int width() = 0;
         virtual int height() = 0;
 
         virtual void showWindow() = 0;
-        
+
         virtual void setBounds(int x, int y, int cx, int cy) = 0;
         virtual void setFocus() = 0;
         virtual void setRenderRate(float rate = 60) = 0;
+        
+        virtual void enableMouseMoveEvents() = 0;
+        virtual void disableMouseMoveEvents() = 0;
+        virtual bool receiveMouseMoveEvents() = 0;
         
         virtual void makeContextCurrent() = 0;
         
@@ -74,11 +87,14 @@ namespace Myron
             #define constexpr 
         #endif
         
+        extern std::unordered_map<uint32_t, std::string> names;
+        
         // catagories of keys
         const uint32_t nav_key = 1;
         const uint32_t function_key = 2;
         
         constexpr uint32_t Fn(uint32_t n);
+        const uint32_t KeyMask = (0xFFF);
 
         const uint32_t ArrowLeft = (nav_key << 8) | 1;
         const uint32_t ArrowRight = (nav_key << 8) | 2;
@@ -95,14 +111,19 @@ namespace Myron
         const uint32_t Return = (nav_key << 8) | 12;
         const uint32_t Enter = Return;
         const uint32_t Escape = (nav_key << 8) | 13;
+        const uint32_t NoKey = 0;
         
         const uint32_t Shift = 1 << 12;
         const uint32_t Control = 1 << 13;
         const uint32_t Alt = 1 << 14;
+        const uint32_t Option = Alt;
         const uint32_t Meta = Alt;
         const uint32_t Command = 1 << 15;
         const uint32_t Win = Command;
         const uint32_t Super = Command;
+        const uint32_t CapsLock = 1 << 16;
+        
+        
     }
 }
 

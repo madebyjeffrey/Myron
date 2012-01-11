@@ -28,7 +28,15 @@ bool setup();
 bool Resize(Myron::Window &win, int &width, int &height);
 bool Close(Myron::Window &win);
 bool Render(Myron::Window &win, float dt);
+bool KeyDown(Myron::Window &win, uint32_t key);
+bool KeyUp(uint32_t key);
 void RenderInfo();
+
+bool MouseDown(unsigned x, unsigned y, unsigned button, unsigned count);
+bool MouseUp(unsigned x, unsigned y, unsigned button, unsigned count);
+bool MouseMove(unsigned x, unsigned y);
+bool MouseDrag(unsigned x, unsigned y, unsigned button);
+
 
 void RenderInfo()
 {
@@ -61,6 +69,11 @@ bool setup()
     main.events.resize = std::bind(Resize, std::ref(main), _1, _2);
     main.events.close = std::bind(Close, std::ref(main));
     main.events.render = std::bind(Render, std::ref(main), _1);
+    main.events.keyDown = std::bind(KeyDown, std::ref(main), _1);
+    main.events.mouseDown = MouseDown;
+    main.events.mouseUp = MouseUp;
+    main.events.mouseDrag = MouseDrag;
+    main.events.mouseMove = MouseMove;
     
     main.setRenderRate();
     main.makeContextCurrent();
@@ -72,6 +85,59 @@ bool setup()
     return true;
 }
 
+bool KeyDown(Myron::Window &win, uint32_t key)
+{
+    if ((key & Myron::Keys::KeyMask) == Myron::Keys::Return)
+    {
+        win.enableMouseMoveEvents();
+        std::cout << "Enable Mouse Move" << std::endl;
+    }
+    else if ((key & Myron::Keys::KeyMask) == 32)
+    {
+        win.disableMouseMoveEvents();
+        std::cout << "Disable Mouse Move" << std::endl;
+    }
+
+    std::cout << "Key down: " << Myron::Keys::names.at(key) << std::endl;
+    return true;
+}
+
+bool KeyUp(uint32_t key)
+{
+    std::cout << "Key up: " << Myron::Keys::names.at(key) << std::endl;
+    return true;
+}
+
+
+bool MouseDown(unsigned x, unsigned y, unsigned button, unsigned count)
+{
+    std::cout << "Mouse " << button << " down, " << count << " times @ (" << x << ", " << y << ")" << std::endl;
+    
+    return true;
+}
+
+bool MouseUp(unsigned x, unsigned y, unsigned button, unsigned count)
+{
+    std::cout << "Mouse " << button << " up, " << count << " times @ (" << x << ", " << y << ")" << std::endl;
+    
+    return true;
+}
+
+bool MouseMove(unsigned x, unsigned y)
+{
+    std::cout << "Mouse moved @ (" << x << ", " << y << ")" << std::endl;
+    
+    return true;
+}
+
+bool MouseDrag(unsigned x, unsigned y, unsigned button)
+{
+    std::cout << "Mouse " << button << " drag, @ (" << x << ", " << y << ")" << std::endl;
+    
+    return true;
+}
+
+
 bool Close(Myron::Window &win)
 {
     std::cout << "Window Closed" << std::endl;
@@ -81,7 +147,7 @@ bool Close(Myron::Window &win)
 bool Resize(Myron::Window &win, int &width, int &height)
 {
 //    float ar = (float)width / (float)height;
-    height = (int)(width / 1.66);
+    height = width / 1.66;
 
 
     std::cout << "Resize: " << width << ", " << height << std::endl;

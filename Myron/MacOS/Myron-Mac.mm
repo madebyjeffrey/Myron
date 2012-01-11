@@ -11,7 +11,7 @@
 #include <iostream>
 #include <setjmp.h>
 #include <stdlib.h>
-
+#include <string.h>
 
 
 #include "Myron.h"
@@ -92,6 +92,7 @@ namespace Myron
         [win setDelegate: appDelegate];
         
         keymap = new std::unordered_map<unichar, uint32_t>();
+        updateKeyList();
 //            [appDelegate createMenu];
 
     }
@@ -110,7 +111,44 @@ namespace Myron
             keys[NSEndFunctionKey] = Myron::Keys::End;
             keys[NSPageUpFunctionKey] = Myron::Keys::PageUp;
             keys[NSPageDownFunctionKey] = Myron::Keys::PageDown;
-            //            keys[NSTab
+            keys[NSDeleteFunctionKey] = Myron::Keys::ForwardDelete;
+            keys[3] = Myron::Keys::Enter; // same as return on PC
+            keys[13] = Myron::Keys::Return;
+            keys[9] = Myron::Keys::Tab;
+            keys[27] = Myron::Keys::Escape;
+            keys[127] = Myron::Keys::BackDelete;
+            
+            for (unichar i = 32; i < 127; i++)
+            {
+                keys[i] = (uint32_t)i; 
+                Keys::names[(uint32_t)i] = std::string(1, (char)(i&0x7F));
+            }
+            
+            for (unichar i = NSF1FunctionKey; i <= NSF35FunctionKey; i++)
+            {
+                keys[i] = Keys::Fn(i - NSF1FunctionKey + 1);
+                Keys::names[Keys::Fn(i - NSF1FunctionKey + 1)] = "F" + std::to_string(i - NSF1FunctionKey + 1);
+            }
+            
+            Keys::names[32] = "Space";
+            Keys::names[Keys::ArrowLeft] = "Left Arrow";
+            Keys::names[Keys::ArrowRight] = "Right Arrow";
+            Keys::names[Keys::ArrowUp] = "Up Arrow";
+            Keys::names[Keys::ArrowDown] = "Down Arrow";
+            Keys::names[Keys::PageUp] = "Page Up";
+            Keys::names[Keys::PageDown] = "Page Down";
+            Keys::names[Keys::Home] = "Home";
+            Keys::names[Keys::End] = "End";
+            Keys::names[Keys::BackDelete] = "Delete";
+            Keys::names[Keys::ForwardDelete] = "Forward Delete";
+            Keys::names[Keys::Tab] = "Tab";
+            Keys::names[Keys::Return] = "Return";
+            Keys::names[Keys::Escape] = "Escape";
+            Keys::names[Keys::Shift] = "Shift";
+            Keys::names[Keys::Control] = "Control";
+            Keys::names[Keys::Alt] = "Option";
+            Keys::names[Keys::Command] = "Command";
+            Keys::names[Keys::NoKey] = "NoKey";
         }
     }
     
@@ -223,6 +261,14 @@ namespace Myron
 		return NULL;
 	}
 
+    uint32_t CocoaFlagstoMyron(NSUInteger flags)
+    {
+        return((flags & NSAlphaShiftKeyMask) ? Myron::Keys::CapsLock : 0) |
+        ((flags & NSShiftKeyMask) ? Myron::Keys::Shift : 0) |
+        ((flags & NSAlternateKeyMask) ? Myron::Keys::Option : 0) |
+        ((flags & NSCommandKeyMask) ? Myron::Keys::Command : 0) |
+        ((flags & NSControlKeyMask) ? Myron::Keys::Control : 0);
+    }
     
 }
 

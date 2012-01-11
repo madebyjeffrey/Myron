@@ -8,8 +8,11 @@
 
 #include <iostream>
 #include <map>
+#include <stdexcept>
 
 #include "Myron.h"
+#include "Myron-Mac.h"
+
 #import "MyronView.h"
 
 uint32_t cocoaKeyToMyronKey(unichar c);
@@ -56,22 +59,208 @@ uint32_t cocoaKeyToMyronKey(unichar c);
     // Drawing code here.
 }
 
+#pragma mark Keyboard Events
+
 - (void)keyDown:(NSEvent *)theEvent
 {
     NSString *chars = [theEvent charactersIgnoringModifiers];
     
     if ([chars length] == 1)
     {
-        char c = [chars cStringUsingEncoding: NSUTF8StringEncoding][0];
+        unichar c = [[theEvent charactersIgnoringModifiers] characterAtIndex: 0];
+        Myron::MacWindow *win = Myron::windowForHandle([self window]);
         
-        std::cout << " Char: " << (unsigned)c << std::endl;
+        if (win && win->keys())
+        {
+            auto haveKey = win->keys()->find(c);
+            
+            if (haveKey != win->keys()->end()) // have a key
+            {
+                if (win->events.keyDown)
+                {
+                    win->events.keyDown(haveKey->second);
+                }
+                else
+                {
+                    std::cout << "No key down event" << std::endl;
+                }
+            }
+            else {
+                std::cout << "Out of Range Char: " << (unsigned)c << std::endl;
+            }
+        }
     }
-    //    std::cout << "Length of chars: " << [[theEvent charactersIgnoringModifiers] length] << std::endl;
-    
 }
 
 - (void)keyUp:(NSEvent *)theEvent
 {
+    NSString *chars = [theEvent charactersIgnoringModifiers];
+    
+    if ([chars length] == 1)
+    {
+        unichar c = [[theEvent charactersIgnoringModifiers] characterAtIndex: 0];
+        Myron::MacWindow *win = Myron::windowForHandle([self window]);
+        
+        if (win && win->keys())
+        {
+            auto haveKey = win->keys()->find(c);
+            
+            if (haveKey != win->keys()->end()) // have a key
+            {
+                if (win->events.keyUp)
+                {
+                    win->events.keyUp(haveKey->second | Myron::CocoaFlagstoMyron([theEvent modifierFlags]));   
+                }
+                else
+                {
+                    std::cout << "No key up event" << std::endl;
+                }
+
+            }
+            else {
+                std::cout << "Out of Range Char: " << (unsigned)c << std::endl;
+            }
+        }
+    }
+}
+
+- (void)flagsChanged:(NSEvent *)theEvent
+{
+    Myron::MacWindow *win = Myron::windowForHandle([self window]);
+    
+    if (win)
+    {
+        if ((bool)win->events.keyDown)
+        {
+            win->events.keyDown(Myron::CocoaFlagstoMyron([theEvent modifierFlags]));   
+        }
+        else
+        {
+            std::cout << "No key down event" << std::endl;
+        }
+    }
+}
+
+#pragma mark Mouse Events
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+    [self otherMouseDown: theEvent];
+}
+
+- (void)mouseUp:(NSEvent *)theEvent
+{
+    [self otherMouseUp: theEvent];
+}
+
+- (void)mouseDragged:(NSEvent *)theEvent
+{
+    [self otherMouseDragged: theEvent];
+}
+
+
+- (void)rightMouseDown:(NSEvent *)theEvent
+{
+    [self otherMouseDown: theEvent];
+}
+
+- (void)rightMouseUp:(NSEvent *)theEvent
+{
+    [self otherMouseUp: theEvent];
+}
+
+- (void)rightMouseDragged:(NSEvent *)theEvent
+{
+    [self otherMouseDragged: theEvent];
+}
+
+- (void)otherMouseUp:(NSEvent *)theEvent
+{
+    Myron::MacWindow *win = Myron::windowForHandle([self window]);
+    
+    if (win)
+    {
+        if ((bool)win->events.mouseUp)
+        {
+            NSPoint loc = [NSEvent mouseLocation];
+            unsigned count = [theEvent clickCount];
+            unsigned button = [theEvent buttonNumber];
+            
+            win->events.mouseUp(static_cast<unsigned>(loc.x), static_cast<unsigned>(loc.y),
+                                button, count);
+            
+        }
+        else
+        {
+            std::cout << "No mouse up event" << std::endl;
+        }
+    }
+}
+
+- (void)otherMouseDown:(NSEvent *)theEvent
+{
+    Myron::MacWindow *win = Myron::windowForHandle([self window]);
+    
+    if (win)
+    {
+        if ((bool)win->events.mouseDown)
+        {
+            NSPoint loc = [NSEvent mouseLocation];
+            unsigned count = [theEvent clickCount];
+            unsigned button = [theEvent buttonNumber];
+            
+            win->events.mouseDown(static_cast<unsigned>(loc.x), 
+                                  static_cast<unsigned>(loc.y),
+                                  button, count);
+            
+        }
+        else
+        {
+            std::cout << "No mouse down event" << std::endl;
+        }
+    }    
+}
+
+- (void)otherMouseDragged:(NSEvent *)theEvent
+{
+    Myron::MacWindow *win = Myron::windowForHandle([self window]);
+    
+    if (win)
+    {
+        if ((bool)win->events.mouseDrag)
+        {
+            NSPoint loc = [NSEvent mouseLocation];
+            unsigned button = [theEvent buttonNumber];
+            
+            win->events.mouseDrag(static_cast<unsigned>(loc.x), 
+                                  static_cast<unsigned>(loc.y),
+                                  button);
+        }
+        else
+        {
+            std::cout << "No mouse drag event" << std::endl;
+        }
+    }    
+}
+
+- (void) mouseMoved:(NSEvent *)theEvent
+{
+    Myron::MacWindow *win = Myron::windowForHandle([self window]);
+    
+    if (win)
+    {
+        if ((bool)win->events.mouseMove)
+        {
+            NSPoint loc = [NSEvent mouseLocation];
+            
+            win->events.mouseMove(static_cast<unsigned>(loc.x), 
+                                  static_cast<unsigned>(loc.y));
+        }
+        else
+        {
+            std::cout << "No mouse move event" << std::endl;
+        }
+    }    
     
 }
 

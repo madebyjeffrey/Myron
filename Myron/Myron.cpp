@@ -15,5 +15,7 @@ namespace Myron
         {
             return (function_key << 8) | n;
         }
+        
+        std::unordered_map<uint32_t, std::string> names;
     }
 }
